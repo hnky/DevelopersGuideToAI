@@ -1,4 +1,4 @@
-# Hands-on AI for developers
+# Developers Guide to Azure AI
 
 After a tremendous age of innovation and research in the AI field, we are moving towards the age of appliance. But how and where do you get started as a developer?
 
