@@ -11,9 +11,7 @@ In this intimate workshop format, you will have time to get into the details of 
 ## The workshop will include the following topics:
 -	Azure AI basics: what is available on the Azure stack and what to use when
 -	Cognitive Services, ready to use AI
--	Azure Machine Learning Studio
 -	Azure Machine Learning Service
--	Automated Machine learning
 
 At the end of the workshop you can integrate different AI components in your application and have a good overview of what is available in Microsoft AI stack and how to use it.
 
@@ -21,4 +19,4 @@ At the end of the workshop you can integrate different AI components in your app
 Developer who want to learn about AI.
 
 ## Prerequisites
-You will need to have your own Azure subscription, which is free to get started. Visual Studio 2017-2019 and / or Visual Studio Code.
+You will need to have your own Azure subscription, which is free to get started. Visual Studio 2017-2019 and / or Visual Studio Code. There will be limited Azure Passes available.
