@@ -22,7 +22,7 @@ Everyone who want to learn about AI.
 You will need to have your own Azure subscription, which is free to get started. Visual Studio 2017-2019 and / or Visual Studio Code. There will be limited Azure Passes available.
 
 # Agenda (4 hour workshop)
-30 min - Introduction to AI on Azure
-90 min - Cognitive Services - Hands on lab
-30 min - Azure Machine Learning Studio
-90 min - Build your own PyTorch model with Azure Machine Learning Studio
+30 min - Introduction to AI on Azure   
+90 min - Cognitive Services - Hands on lab   
+30 min - Azure Machine Learning Studio   
+90 min - Build your own PyTorch model with Azure Machine Learning Studio   
