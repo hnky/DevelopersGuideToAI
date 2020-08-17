@@ -21,7 +21,7 @@ Let us start by looking at how pre-trained [Computer Vision cognitive service](h
  ```
  * Observe how the image has been classified:
 
-![Computer Vision Results](docsimages/CompVision.png)
+![Computer Vision Results](docsimages/compVision.png)
 
 While some of the objects (such as Toy) can be recognized by the pre-trained model, more specialized objects (like this is Bart Simpson or Marge Simpson) are not determined correctly.
 

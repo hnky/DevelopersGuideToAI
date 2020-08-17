@@ -4,7 +4,12 @@
 * [Pre-requirements](preworkshop.md)
 * [Agenda](agenda.md)
 
-### Microsoft Azure Cognitive Services
-* [Exercise 1 - Computer Vision (15 min)](labs/lab-1.md))
-* [Exercise 2 - Custom Vision](labs/lab-2.md)
-* [Exercise 3 - Build Custom AI into an Application](labs/lab-3.md)
+### Cognitive Services
+* [Lab 1 - Computer Vision](customvision/lab-1.md))
+* [Lab 2 - Custom Vision](customvision/lab-2.md)
+* [Lab 3 - Build Custom AI into an Application](customvision/lab-3.md)
+
+### Azure Machine Learning
+* [Lab 1 - Computer Vision](labs/lab-1.md))
+* [Lab 2 - Custom Vision](labs/lab-2.md)
+* [Lab 3 - Build Custom AI into an Application](labs/lab-3.md)
