@@ -161,7 +161,7 @@ simpsons_ds = Dataset.get_by_name(ws, name='LegoSimpsons')
 ```
 project_folder = "./trainingscripts"
 
-training_script_url = "https://raw.githubusercontent.com/hnky/HandsOnAIWorkshop/master/amls/resources/train.py"
+training_script_url = "https://raw.githubusercontent.com/hnky/DevelopersGuideToAI/master/amls/resources/train.py"
 
 training_script_download_path = os.path.join(project_folder,"train.py")
 if not os.path.exists(project_folder):
