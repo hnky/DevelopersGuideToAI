@@ -44,12 +44,12 @@ az ml folder attach -w <workspace-name> -g <resource-group-name>
 ### Create a Compute Cluster
 To train our model we need an Azure Machine Learning Compute cluster. To create a new compute cluster, use the following command.   
 
-This command will create a Azure Machine Learning Compute cluster with 1 node that is always on and is using Standard_D2_V2 virtual Machines.
+This command will create a Azure Machine Learning Compute cluster with 1 node that is always on and is using STANDARD_NC6 virtual Machines.
 
 *To speed up the training process you can use a GPU enabled NV6 machine*
 
 ```
-az ml computetarget create amlcompute -n cpu-cluster --min-nodes 1 --max-nodes 1 --vm-size Standard_D2_V2
+az ml computetarget create amlcompute -n cpu-cluster --min-nodes 1 --max-nodes 1 --vm-size STANDARD_NC6
 ```
 
 > View your created Azure Machine Learning Compute cluster on [https://ml.azure.com](https://ml.azure.com)
@@ -74,12 +74,6 @@ az ml computetarget create computeinstance -n <name> --vm-size Standard_D2_V2
 ### Create a Notebook
 
 - Navigate to the Notebook section in Azure Machien Learning Studio. 
-- Under 'My Files' create a new directory with the name 'Simpsons'
-
-![Create new folder](img/notebook-new-folder.png)
-
-
-- Select the newly create Simpsons folder.
 - Create a new file with name 'simpsons' and File type 'notebook'
 
 ![Create new folder](img/notebook-new-file.png)
