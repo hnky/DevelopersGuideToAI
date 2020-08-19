@@ -7,10 +7,6 @@ Suppose we need to create an application that recognizes Simpson Lego Figures:
 
 We will use the [Simpsons Lego Figure Dataset](https://github.com/hnky/dataset-lego-figures) from Henk Boelman.
 
-In this repository, we have provided two sets of images for each of the 5 classes above:
- * [training files](../CV%20training%20images/) that we will use for training our own custom model later
- * [test images](../CV%20test%20images), which we will use to evaluate the model
-
 Let us start by looking at how pre-trained [Computer Vision cognitive service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma) can see our images:
 
  * Go to the home page of [Computer Vision Service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma)
