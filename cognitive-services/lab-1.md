@@ -8,25 +8,63 @@ We will use the [Simpsons Lego Figure Dataset](https://github.com/hnky/dataset-l
 
 Let us start by looking at how pre-trained [Computer Vision cognitive service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma) can see our images:
 
-### Create the CognitiveService account
+### Setup the Azure Resources
 
+#### Create a resource group
+
+The Azure Machine Learning workspace must be created inside a resource group. You can use an existing resource group or create a new one. To create a new resource group, use the following command. Replace  &lt;&lt;resource-group-name&gt;&gt; with your name to use for this resource group. Replace &lt;&lt;location&gt;&gt;  with the Azure region to use for this resource group.
+
+```text
+az group create --name <resource-group-name> --location <location>
 ```
-az cognitiveservices account create --name ComputerVision --resource-group cognitive-rg --kind ComputerVision --sku F0 --location westeurope --yes
-``` 
 
-* Go to the home page of [Computer Vision Service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma)
-* Scroll down to **See it in action** section
-* Paste the link below in the **Image URL** field and click **Submit**.
+#### Create the Cognitive Service Account
 
-  ```text
-  https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg
-  ```
+Run the command below to create a free Computer Vision Endpoint. Replace &lt;&lt;resource-group-name&gt;&gt; with the name you used above and use the same location. Replace &lt;&lt;name&gt;&gt; with a name for your resource like: my-computervision.
 
-* Observe how the image has been classified:
+```text
+az cognitiveservices account create --name <name> --kind ComputerVision --sku F0 --resource-group <resource-group-name> --location <location> --yes
+```
 
-![Computer Vision Results](../.gitbook/assets/compVision.png)
+#### Get the endpoint details from the Cognitive Service Account
 
-While some of the objects \(such as Toy\) can be recognized by the pre-trained model, more specialized objects \(like this is Bart Simpson or Marge Simpson\) are not determined correctly.
+To get the endpoint from the Cognitive service account run the CLI command below. Replace &lt;&lt;name&gt;&gt; and &lt;&lt;resource-group-name&gt;&gt; with the names used above. 
+
+**Get the API keys**
+
+```text
+az cognitiveservices account keys list --name <name> --resource-group <resource-group-name> 
+```
+
+**Get the endpoint URL**
+
+```text
+az cognitiveservices account show --name <name> --resource-group <resource-group-name> -o json --query properties.endpoint
+```
+
+#### At this point you should have:
+
+- An endpoint URL looking like this: https://&lt;region&gt;.api.cognitive.microsoft.com/   
+- 2 keys looking like this: 06a611d19f4f4a88a03f3b552a5d2379
+
+### Test the Computer Vision Endpoint
+
+Run the command below to test the endpoint for an image with Bart Simpson on it.
+
+```text
+curl -H "Ocp-Apim-Subscription-Key: <<key>>" -H "Content-Type: application/json" "<<endpoint-url>>/vision/v3.2/analyze?visualFeatures=Description" -d "{\"url\":\"https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg\"}"
+```
+
+The response should look like:  
+`{  
+"description":{   
+    "tags":[ "text", "indoor", "toy" ],   
+"captions":[ {   
+    "text": "a hand holding a toy",   
+    "confidence":0.4660031199455261   
+}]}}`
+
+> **Try it with your own images!**
 
 [**Continue with lab 2 &gt;**](lab-2.md)
 
