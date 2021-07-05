@@ -10,7 +10,9 @@ Let us start by looking at how pre-trained [Computer Vision cognitive service](h
 
 ### Create the CognitiveService account
 
-```az cognitiveservices account create --name ComputerVision --resource-group cognitive-rg --kind ComputerVision --sku F0 --location westeurope --yes``` 
+```
+az cognitiveservices account create --name ComputerVision --resource-group cognitive-rg --kind ComputerVision --sku F0 --location westeurope --yes
+``` 
 
 * Go to the home page of [Computer Vision Service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma)
 * Scroll down to **See it in action** section
