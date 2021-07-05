@@ -8,6 +8,10 @@ We will use the [Simpsons Lego Figure Dataset](https://github.com/hnky/dataset-l
 
 Let us start by looking at how pre-trained [Computer Vision cognitive service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma) can see our images:
 
+### Create the CognitiveService account
+
+`az cognitiveservices account create --name ComputerVision --resource-group cognitive-rg --kind ComputerVision --sku F0 --location westeurope --yes` 
+
 * Go to the home page of [Computer Vision Service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma)
 * Scroll down to **See it in action** section
 * Paste the link below in the **Image URL** field and click **Submit**.
