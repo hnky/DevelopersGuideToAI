@@ -49,6 +49,8 @@ az cognitiveservices account show --name <name> --resource-group <resource-group
 
 ### Test the Computer Vision Endpoint
 
+#### Using the command line
+
 Run the command below to test the endpoint for an image with Bart Simpson on it.
 
 ```text
@@ -64,7 +66,14 @@ The response should look like:
     "confidence":0.4660031199455261   
 }]}}`
 
+#### Using a web interface
+
+Navigate to: [https://cgntv-cv.azurewebsites.net/](https://cgntv-cv.azurewebsites.net/)  
+Enter the endpoint url, the api key, a link to an image and click analyze. This website shows all the information that comes back from the Computer Vision API.
+
 > **Try it with your own images!**
+
+While some of the objects \(such as Toy\) can be recognized by the pre-trained model, more specialized objects \(like this is Bart Simpson or Marge Simpson\) are not determined correctly.
 
 [**Continue with lab 2 &gt;**](lab-2.md)
 
