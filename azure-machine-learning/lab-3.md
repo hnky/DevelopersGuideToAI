@@ -1,12 +1,12 @@
-# Lab 3:  Deploy your model
+# Lab 3 - Deploy your model
 
 In this lab we are going to deploy the model wrappend in an API in an Azure Container Instance and sending data to it with postman.
-
 
 ## Deploy to an Azure Container Instance
 
 ### Download the scoring script
-```
+
+```text
 inference_folder = "./inference"
 
 inference_script_url = "https://raw.githubusercontent.com/hnky/DevelopersGuideToAI/master/amls/resources/score.py"
@@ -17,30 +17,34 @@ urllib.request.urlretrieve(inference_script_url, filename=inference_script_downl
 ```
 
 ### Create an environment file
-```
+
+```text
 myenv = CondaDependencies.create(pip_packages=['azureml-defaults ', 'torch', 'torchvision','pillow==5.4.1'])
 
 with open("inference/myenv.yml","w") as f:
     f.write(myenv.serialize_to_string())
-    
+
 myenv = Environment.from_conda_specification(name="myenv", file_path="inference/myenv.yml")
 ```
 
 ### Create an Inference config
-```
+
+```text
 inference_config = InferenceConfig(entry_script="inference/score.py", environment=myenv)
 ```
 
 ### Create a deployment config
-```
+
+```text
 deploy_config = AciWebservice.deploy_configuration(
                     cpu_cores = model.resource_configuration.cpu, 
                     memory_gb = model.resource_configuration.memory_in_gb,
                     description='Simpson Lego Classifier')
-```                    
+```
 
 ### Deploy the model to an ACI
-```
+
+```text
 aci_service = Model.deploy(ws, 
                 name="simpsons-pt-aci", 
                 models = [model], 
@@ -52,18 +56,19 @@ aci_service.wait_for_deployment(show_output=True)
 print("Scoring endpoint:",aci_service.scoring_uri)
 ```
 
-> *This step can take up to 10 minutes*
-
+> _This step can take up to 10 minutes_
+>
 > You can find the deployment location from your model back under the model: [https://ml.azure.com](https://ml.azure.com/model/list)
 
-![Scoring URL](img/deploy-model.png) 
+![Scoring URL](../.gitbook/assets/deploy-model.png)
 
 ## Test the model in the API
 
 ### Post an image to the endpoint
+
 The easiest way to test your scoring endpoint is the code below.
 
-```
+```text
 image_uri = "https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg"
 result = aci_service.run(input_data=json.dumps({ "url": image_uri}))
 print(result)
@@ -71,21 +76,24 @@ print(result)
 
 ### Use Postman
 
-- Get the scoring uri
-```
-print("Scoring endpoint:",aci_service.scoring_uri)
-```
-- Create a new request in Postman
-- Send a raw body with the JSON below
-```
-{ "url": "https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg"}
-```
+* Get the scoring uri
 
-![Scoring URL](img/deploy-postman.png) 
+  ```text
+  print("Scoring endpoint:",aci_service.scoring_uri)
+  ```
 
+* Create a new request in Postman
+* Send a raw body with the JSON below
+
+  ```text
+  { "url": "https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg"}
+  ```
+
+![Scoring URL](../.gitbook/assets/deploy-postman.png)
 
 ### Try other images
-```
+
+```text
 https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Krusty.jpg
 https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg
 https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Flanders.jpg
@@ -97,6 +105,5 @@ https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/MrBurns
 https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Wiggum.jpg
 ```
 
----- 
-
 **End**
+

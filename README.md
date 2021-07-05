@@ -1,4 +1,4 @@
-# Developers Guide to Azure AI
+# Introduction
 
 After a tremendous age of innovation and research in the AI field, we are moving towards the age of appliance. But how and where do you get started as a developer?
 
@@ -9,11 +9,14 @@ We start with pre-build cognitive services and move through the landscape to Azu
 In this intimate workshop format, you will have time to get into the details of how to get the most out of Microsoft AI. We will combine the knowledge of the participants in the workshop through sharing of ideas, experiences and discuss the relevant options where relevant.
 
 ## The workshop will include the following topics:
--	Azure AI basics: what is available on the Azure stack and what to use when
--	Cognitive Services, ready to use AI
--	Azure Machine Learning Service
+
+* Azure AI basics: what is available on the Azure stack and what to use when
+* Cognitive Services, ready to use AI
+* Azure Machine Learning Service
 
 At the end of the workshop you can integrate different AI components in your application and have a good overview of what is available in Microsoft AI stack and how to use it.
 
 ## Who Is It For?
+
 Everyone who want to learn about AI.
+
