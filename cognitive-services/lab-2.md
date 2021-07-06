@@ -293,6 +293,7 @@ You have created your specialized Simpsons classification model using the Azure 
 * [https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample](https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample)
 * [https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?tabs=visual-studio&pivots=programming-language-python)
 * [https://github.com/Azure-Samples/customvision-export-samples](https://github.com/Azure-Samples/customvision-export-samples)
+* [https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/customvision?view=azure-python](https://docs.microsoft.com/en-us/python/api/overview/azure/cognitiveservices/customvision?view=azure-python)
 
 [**Continue with lab 3 &gt;**](lab-3.md)
 
