@@ -1,3 +1,7 @@
+---
+description: Analyze an image by sending it to the Computer Vision API
+---
+
 # Lab 1 - Computer Vision
 
 Microsoft Azure Cognitive Services contain some pre-built models for the most typical tasks, such as object detection in pictures, speech recognition and synthesis, sentiment analysis and so on. Let us test the [**Computer Vision API**](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma) service to see if it can recognize some specific objects in one particular problem domain.
@@ -8,7 +12,7 @@ We will use the [Simpsons Lego Figure Dataset](https://github.com/hnky/dataset-l
 
 Let us start by looking at how pre-trained [Computer Vision cognitive service](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=gaic-github-heboelma) can see our images:
 
-### Setup the Azure Resources
+### 1. Setup the Azure Resources
 
 #### Create a resource group
 
@@ -47,7 +51,7 @@ az cognitiveservices account show --name <name> --resource-group <resource-group
 - An endpoint URL looking like this: https://&lt;region&gt;.api.cognitive.microsoft.com/   
 - 2 keys looking like this: 06a611d19f4f4a88a03f3b552a5d2379
 
-### Test the Computer Vision Endpoint
+### 2. Test the Computer Vision Endpoint
 
 #### Using the command line
 
@@ -69,9 +73,13 @@ The response should look like:
 #### Using a web interface
 
 Navigate to: [https://cgntv-cv.azurewebsites.net/](https://cgntv-cv.azurewebsites.net/)  
-Enter the endpoint url, the api key, a link to an image and click analyze. This website shows all the information that comes back from the Computer Vision API.
+Enter the endpoint URL, the API key, a link to an image and click 'analyze image'. This website shows all the information that comes back from the Computer Vision API.
 
-> **Try it with your own images!**
+> **Tip: Try it with your own images!**
+
+### 3. Conclusion
+
+In this lab you have created a Computer Vision Endpoint in Azure and send images to the endpoint using the command line and a through a visual interface.
 
 While some of the objects \(such as Toy\) can be recognized by the pre-trained model, more specialized objects \(like this is Bart Simpson or Marge Simpson\) are not determined correctly.
 
