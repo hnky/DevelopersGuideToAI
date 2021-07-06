@@ -175,7 +175,13 @@ Now we have our images split in batches of 64, we can upload them batch by batch
 
 ```text
 for batchOfImages in batchedImages:
- 	upload_result = trainer.create_images_from_files(project.id, images=batchOfImages)
+    upload_result = trainer.create_images_from_files(project.id, ImageFileCreateBatch(images=batchOfImages))
+    if not upload_result.is_batch_successful:
+        print("Image batch upload failed.")
+        for image in upload_result.images:
+            print("Image status: ", image.status)
+    else:
+        print("Batch uploaded successfully")
 ```
 
 ### Train the classification model
@@ -183,12 +189,13 @@ for batchOfImages in batchedImages:
 From this point, there are only two steps remaining before you can access the model through an API endpoint. First you need to train the model and finally you must publish the model, so it is accessible through a prediction API. The training can take a while, so you can create a while loop after the train request that checks the status of the model training every second.
 
 ```text
-import time
+print ("Training...")
 iteration = trainer.train_project(project.id)
 while (iteration.status != "Completed"):
- 	iteration = trainer.get_iteration(project.id, iteration.id)
- 	print ("Training status: " + iteration.status)
- 	time.sleep(1)
+    iteration = trainer.get_iteration(project.id, iteration.id)
+    print ("Training status: " + iteration.status)
+    print ("Waiting 10 seconds...")
+    time.sleep(10)
 ```
 
 Now you have successfully trained your model!
@@ -255,7 +262,7 @@ print("Data extracted in: ./model")
 
 ```text
 pip install onnxruntime
-pip install "pillow!=8.3.0"
+pip install "pillow!=8.3.0" #pillow 8.3.0 and numpy don't work together
 ```
 
 ```text
