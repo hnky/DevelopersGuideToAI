@@ -16,7 +16,7 @@ Let us start by looking at how pre-trained [Computer Vision cognitive service](h
 
 #### Create a resource group
 
-The Azure Machine Learning workspace must be created inside a resource group. You can use an existing resource group or create a new one. To create a new resource group, use the following command. Replace  &lt;&lt;resource-group-name&gt;&gt; with your name to use for this resource group. Replace &lt;&lt;location&gt;&gt;  with the Azure region to use for this resource group.
+The Computer Vision Endpoint must be created inside a resource group. You can use an existing resource group or create a new one. To create a new resource group, use the following command. Replace  &lt;&lt;resource-group-name&gt;&gt; with your name to use for this resource group. Replace &lt;&lt;location&gt;&gt;  with the Azure region to use for this resource group.
 
 ```text
 az group create --name <resource-group-name> --location <location>
