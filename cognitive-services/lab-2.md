@@ -206,6 +206,8 @@ A small recap of what have we done:
 
 To test our model we are going to export our model in the ONNX format, download the model and run it locally.
 
+### Export the iteration to an ONNX model
+
 ```text
 platform = "ONNX"
 flavor = "ONNX12"
@@ -227,6 +229,8 @@ while (export.status == "Exporting"):
     print("Export status is: ", export.status)
 ```
 
+### Download and unzip the export
+
 ```text
 import os
 import requests
@@ -245,6 +249,13 @@ zip_ref = zipfile.ZipFile("export.zip", 'r')
 zip_ref.extractall("./model")
 zip_ref.close()
 print("Data extracted in: ./model")
+```
+
+### Predict an image
+
+```text
+pip install onnxruntime
+pip install "pillow!=8.3.0"
 ```
 
 ```text
@@ -267,12 +278,14 @@ print("Label: " + outputs[0][0][0])
 print("Score: " + str(outputs[1][0][outputs[0][0][0]]))
 ```
 
-**Great work!** you have created your specialized Simpsons classification model using the Azure Custom Vision Service.
+**Great work!**   
+You have created your specialized Simpsons classification model using the Azure Custom Vision Service.
 
 ## Resources
 
 * [https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample](https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample)
 * [https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?tabs=visual-studio&pivots=programming-language-python)
+* [https://github.com/Azure-Samples/customvision-export-samples](https://github.com/Azure-Samples/customvision-export-samples)
 
 [**Continue with lab 3 &gt;**](lab-3.md)
 
