@@ -133,6 +133,8 @@ Let’s create a new project with the domain set to “General Compact”.
 project = trainer.create_project("Lego - Simpsons - v1","0732100f-1a38-4e49-a514-c9b44c697ab5")
 ```
 
+### Create the tags
+
 Next you need to create tags, these tags are the same as classes mentioned above. When you have created a few tags we can tag images with them and upload the images to the Azure Custom Vision Service.
 
 Our images are sorted per tag/class in a folder. All the photos of Marge are in the folder named 'Marge' and all the images of Homer are in the folder named 'Homer'.
@@ -187,37 +189,7 @@ while (iteration.status != "Completed"):
  	time.sleep(1)
 ```
 
-Now you have reached the final step, we can publish the model. Its then available in a prediction API and ready to be consumed from an application.
-
-Every time you train your model its called an iteration. Often you have to retrain your model when you have new data or when you find out that in the real world your model is behaving different than expected.
-
-The concept of the Custom Vision Service is that you can publish an iteration of your model under a specific name. This means that you can have multiple versions of your model available for your application to use, for instance you can a-b test your model very quickly with this.
-
-To publish an iteration of your model you call the publish\_iteration method, this method requires a few parameters.
-
-Project ID and Iteration ID, these are values from the previous steps. You can choose a name for publication of your model, for instance 'latest' or 'version1 . The last parameter you need is the 'resource identifier' of the resource where you want to publish it to. This is the resource identifier of the Azure Custom Vision Prediction resource we created at the beginning with our AZ command.
-
-You can use this command to retrieve all the details about the Prediction resource you created:
-
-```text
-az cognitiveservices account show --name CustomVisionDemo-Prediction --resource-group CustomVision_Demo-RG
-```
-
-You can copy the value that is behind the field ID, it looks like this:
-
-```text
-/subscriptions/<SUBSCRIPTION-ID>/resourceGroups/<RESOURCE_GROUP_NAME>/providers/Microsoft.CognitiveServices/accounts/<RESOURCE_NAME>")
-```
-
-When you have the resource ID, paste it in the variable below and call the 'publish\_iteration' method.
-
-```text
-publish_iteration_name = ''
-resource_identifier = ''
-trainer.publish_iteration(project.id, iteration.id, publish_iteration_name, resource_identifier)
-```
-
-Now you have successfully trained and published your model!
+Now you have successfully trained your model!
 
 A small recap of what have we done:
 
@@ -228,9 +200,9 @@ A small recap of what have we done:
 * You have trained an iteration of your model
 * You have published the iteration to a prediction endpoint
 
-### Add Images
+## 3. Test your model
 
-### Train your model
+To test our model we are going to export our model in the ONNX format, download the model and run it locally.
 
 ## Build Classifier
 
@@ -334,26 +306,14 @@ You can now select the **Prediction URL** button to gain all information you nee
 
 ![Prediction model URL](../.gitbook/assets/predictionURL.png)
 
-## Use Model with Postman
-
-Now create a new request.
-
-You can use the prior info to set the URL, the Header and the Body \(using both an image or an image URL\):
-
-* Type of request: select POST
-* URL: enter the Prediction URL
-* Headers: set "Prediction-Key" and "Content-Type" items, in this case we use a URL for the image, so we set Content-Type to JSON
-* Body: in this case we enter the image URL "[https://upload.wikimedia.org/wikipedia/commons/d/d7/Battdrill.jpg](https://upload.wikimedia.org/wikipedia/commons/d/d7/Battdrill.jpg)"
-
-![Postman Header](../.gitbook/assets/postmanHeader.png)
-
-![Postman Body](../.gitbook/assets/postmanBody.png)
-
 Now click on Send... Which Simpson did you upload?
 
-![Postman Result](../.gitbook/assets/resultPostman.png)
+**Great work!** you have created your specialized Simpsons classification model using the Azure Custom Vision Service.
 
-**Great work!** you have created your specialised Simpsons classification model using the Azure Custom Vision Service
+## Resources
+
+* [https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample](https://github.com/Azure-Samples/cognitive-services-onnx-customvision-sample)
+* [https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?tabs=visual-studio&pivots=programming-language-python)
 
 [**Continue with lab 3 &gt;**](lab-3.md)
 
