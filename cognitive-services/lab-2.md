@@ -133,7 +133,7 @@ Let’s create a new project with the domain set to “General Compact”.
 project = trainer.create_project("Lego - Simpsons - v1","0732100f-1a38-4e49-a514-c9b44c697ab5")
 ```
 
-### Create the tags
+### Upload and tag the images
 
 Next you need to create tags, these tags are the same as classes mentioned above. When you have created a few tags we can tag images with them and upload the images to the Azure Custom Vision Service.
 
@@ -178,6 +178,8 @@ for batchOfImages in batchedImages:
  	upload_result = trainer.create_images_from_files(project.id, images=batchOfImages)
 ```
 
+### Train the classification model
+
 From this point, there are only two steps remaining before you can access the model through an API endpoint. First you need to train the model and finally you must publish the model, so it is accessible through a prediction API. The training can take a while, so you can create a while loop after the train request that checks the status of the model training every second.
 
 ```text
@@ -204,109 +206,66 @@ A small recap of what have we done:
 
 To test our model we are going to export our model in the ONNX format, download the model and run it locally.
 
-## Build Classifier
-
-Now we can build our classifier, navigate to [https://www.customvision.ai](https://www.customvision.ai/?WT.mc_id=gaic-github-heboelma) and choose sign in. Sign in with your Azure credentials account.
-
-> Accept the terms and conditions box to continue.
-
-### Create Project
-
-Once loaded choose 'New Project' which opens a window to enter details:
-
-* Name: choose a suitable name
-* Description: add a description of the classifier \(example shown in image below\)
-* Resource Group: choose the resource group you created your custom vision service in \(example: workshop\[SO\]\)
-* Project Types: Classification
-* Classification Types: Multiclass \(Single tag per image\)
-* Domains: Retail \(compact\)
-* Export Capabilities: Basic platforms
-
-![Create Custom Vision Project](../.gitbook/assets/createClassifier.png)
-
-Click on 'Create Project' and you will land on an empty workspace.
-
-### Add Images
-
-Now you can start adding images and assigning them tags to create our image classifier.
-
-* Download and unzip the [Simpsons Lego Dataset](https://github.com/hnky/dataset-lego-figures/raw/master/_download/simpsons-lego-dataset.zip)
-* In the top left, select 'Add images', browse for the first folder of images - Bart Simpson - and select all the images in the folder.
-* Add the tag 'Bart Simpson' to the Bart Simpson images and select 'Upload files'
-
-Once successful, you receive a confirmation message and you should see that your images are now available in the workspace.
-
-![Upload images of drills](../.gitbook/assets/addSimpsons.png)
-
-Now complete the same steps of uploading and tagging images for the other Simpsons in the folder. For each type of Simpson:
-
-* Click 'Add images'
-* Select all the images
-* Add the class label \(Lisa, Marge, etc.\)
-* Choose upload
-* Confirm images uploaded into the workspace
-
-Now you should have all categories uploaded and on the left hand side you can see your Simpsons classes and you can filter depending on type of Simpson image.
-
-### Train Model
-
-Now you are ready to train your algorithm on the Simpsons image data you have uploaded. Select the green **'Train'** button in the top right corner. For this demo, you can use the "Fast Training" option.
-
-Once the training process is complete it will take you to the Performance tab. Here you will receive machine learning evaluation metrics for your model. Here you algo get information regarding the class imbalance, as some Simpsons have less images than others.
-
-![Evaluation Medtrics](../.gitbook/assets/trainMetrics.png)
-
-### Test Model
-
-Now you have a model, you need to test the model. Choose the 'Quick Test' button in the top right _\(next to the train button\)_ this will open a window where you can browse for a local image or enter a web URL.
-
-Use one of the image links below \(images the model have not been trained on\) and paste the link in the Image URL field. The image will be analysed and a result returned of what Simpson the model thinks it is \(prediction tag\) and the models confidence of its result \(prediction probability\).
-
 ```text
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg
+platform = "ONNX"
+flavor = "ONNX12"
+iteration_id = iteration.id 
+project_id = project.id
+export = trainer.export_iteration(project_id, iteration_id , platform, flavor, raw=False)
 ```
 
-![Quick Test](https://github.com/hnky/DevelopersGuideToAI/tree/346495054040009c22d20233f6eb08249e489eaf/customvision/docsimages/QuickTest.png)
-
-> Repeat this process for other image in the test folder, or search online for other images to see how the model performs.
-
 ```text
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Krusty.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Flanders.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Homer.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Lisa.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/marge.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Milhouse.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/MrBurns.jpg
-https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Wiggum.jpg
+while (export.status == "Exporting"):
+    print ("Waiting 10 seconds...")
+    time.sleep(10)
+    exports = trainer.get_exports(project.id, iteration_id)
+    # Locate the export for this iteration and check its status  
+    for e in exports:
+        if e.platform == export.platform and e.flavor == export.flavor:
+            export = e
+            break
+    print("Export status is: ", export.status)
 ```
 
-### Retrain Model
+```text
+import os
+import requests
+import zipfile
 
-If you click on the **'Predictions'** tab on the top toolbar - you should see all the test images you have submitted. This section is for re-training, as you get new data you can add this to your model to improve its performance. The images are ordered by importance - the image, which if classified correctly, will add the most new information to the model is listed first. Whereas the last image might be very similar to other images already learnt by the model so this is less important to classify correctly.
+if export.status == "Done":
+    # Success, now we can download it
+    export_file = requests.get(export.download_uri)
+    with open("export.zip", "wb") as file:
+        file.write(export_file.content)
+        
+# Unzip the downloaded export
+if not os.path.exists("./model"):
+    os.mkdir("./model");
+zip_ref = zipfile.ZipFile("export.zip", 'r')
+zip_ref.extractall("./model")
+zip_ref.close()
+print("Data extracted in: ./model")
+```
 
-To add these images to the model - select the first image, review the results the model provided and then in the 'My Tags' box enter the correct tag and click 'save and close'.
+```text
+import onnxruntime as nxrun
+import numpy as np
+import PIL
 
-![Add Re-training Tag](../.gitbook/assets/testImage.png)
+image_filepath = "./Bart.jpg"
+model_path = "./model/model.onnx"
 
-This image will disappear from the your predictions workspace and be added to the training images workspace. Once you add a few new images and tags you can re-train the model to see if there are improvements.
+sess = nxrun.InferenceSession(model_path)
+image = PIL.Image.open(image_filepath).resize([224,224])
+input_array = np.array(image, dtype=np.float32)[np.newaxis, :, :, :]
+input_array = input_array.transpose((0, 3, 1, 2))[:, (2, 1, 0), :, :]
 
-### Publish Model
+input_name = sess.get_inputs()[0].name
+outputs = sess.run(None, {input_name: input_array.astype(np.float32)})
 
-To use this model within applications you need the prediction details. Therefore, you have to go to the Performance tab from the top bar, click the **Publish** button.
-
-![Prediction model](../.gitbook/assets/publishModel.png)
-
-Please provide a name for your model and select the Prediction resource, and click on Publish. Please take notice of you Publication Resource, which you need in the second task.
-
-![Prediction model resource](../.gitbook/assets/publishModel2.png)
-
-You can now select the **Prediction URL** button to gain all information you need to create a Postman call to your API.
-
-![Prediction model URL](../.gitbook/assets/predictionURL.png)
-
-Now click on Send... Which Simpson did you upload?
+print("Label: " + outputs[0][0][0])
+print("Score: " + str(outputs[1][0][outputs[0][0][0]]))
+```
 
 **Great work!** you have created your specialized Simpsons classification model using the Azure Custom Vision Service.
 
