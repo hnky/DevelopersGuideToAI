@@ -2,7 +2,7 @@
 
 In this lab we are going to deploy the model wrappend in an API in an Azure Container Instance and sending data to it with postman.
 
-## Deploy to an Azure Container Instance
+## 1. Deploy to an Azure Container Instance
 
 ### Download the scoring script
 
@@ -16,30 +16,35 @@ if not os.path.exists(inference_folder):
 urllib.request.urlretrieve(inference_script_url, filename=inference_script_download_path)
 ```
 
-### Create an environment file
+### Create an inference environment
 
 ```text
-myenv = CondaDependencies.create(pip_packages=['azureml-defaults ', 'torch', 'torchvision','pillow==5.4.1'])
+inference_env = Environment(name="simpsons-inference")
 
-with open("inference/myenv.yml","w") as f:
-    f.write(myenv.serialize_to_string())
-
-myenv = Environment.from_conda_specification(name="myenv", file_path="inference/myenv.yml")
+conda_dep = CondaDependencies()
+conda_dep.add_pip_package("azureml-defaults")
+conda_dep.add_pip_package("torch")
+conda_dep.add_pip_package("torchvision")
+conda_dep.add_pip_package("pillow==5.4.1")
 ```
 
 ### Create an Inference config
 
 ```text
-inference_config = InferenceConfig(entry_script="inference/score.py", environment=myenv)
+inference_config = InferenceConfig(
+    entry_script="inference/score.py", 
+    environment=inference_env 
+)
 ```
 
-### Create a deployment config
+### Create a Azure Container Instance deployment config
 
 ```text
 deploy_config = AciWebservice.deploy_configuration(
-                    cpu_cores = model.resource_configuration.cpu, 
-                    memory_gb = model.resource_configuration.memory_in_gb,
-                    description='Simpson Lego Classifier')
+    cpu_cores = model.resource_configuration.cpu, 
+    memory_gb = model.resource_configuration.memory_in_gb,
+    description='Simpson Lego Classifier'
+)
 ```
 
 ### Deploy the model to an ACI
@@ -62,7 +67,7 @@ print("Scoring endpoint:",aci_service.scoring_uri)
 
 ![Scoring URL](../.gitbook/assets/deploy-model.png)
 
-## Test the model in the API
+## 2. Test the model in the API
 
 ### Post an image to the endpoint
 

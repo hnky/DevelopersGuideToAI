@@ -32,26 +32,16 @@ az ml workspace create -w <workspace-name> -g <resource-group-name>
 
 ![Azure Machine Learning studio](../.gitbook/assets/ml-studio.png)
 
-### Connect to your workspace
-
-Create a empty directory and connect to your workspace
-
-```text
-md c:\temp\amls
-cd c:\temp\amls
-az ml folder attach -w <workspace-name> -g <resource-group-name>
-```
-
 ### Create a Compute Cluster
 
 To train our model we need an Azure Machine Learning Compute cluster. To create a new compute cluster, use the following command.
 
 This command will create a Azure Machine Learning Compute cluster with 1 node that is always on and is using STANDARD\_NC6 virtual Machines.
 
-_To speed up the training process you can use a GPU enabled NV6 machine_
+_To speed up the training process you can use a GPU enabled NC6 machine_
 
 ```text
-az ml computetarget create amlcompute -n gpu-cluster --min-nodes 1 --max-nodes 1 --vm-size STANDARD_NC6
+az ml computetarget create amlcompute -n gpu-cluster --min-nodes 1 --max-nodes 1 --vm-size STANDARD_NC6 -w <workspace-name> -g <resource-group-name>
 ```
 
 > View your created Azure Machine Learning Compute cluster on [https://ml.azure.com](https://ml.azure.com)
@@ -65,7 +55,7 @@ To train our model we are going to use a notebook. To run a notebook in Azure Ma
 _Choose a unique name_
 
 ```text
-az ml computetarget create computeinstance -n <name> --vm-size Standard_D2_V2
+az ml computetarget create computeinstance -n <name> --vm-size Standard_D2_V2 -w <workspace-name> -g <resource-group-name>
 ```
 
 > View your created Azure Machine Learning Compute cluster on [https://ml.azure.com](https://ml.azure.com)
@@ -81,7 +71,7 @@ az ml computetarget create computeinstance -n <name> --vm-size Standard_D2_V2
 
 ### Setup completed
 
-If everything went correctly you should be looking at a screen that looks like the one below and see that your notebook is running on you created Compute Instance.
+If everything went correctly you should be looking at a screen that looks like the one below and see that your notebook is running on your created Compute Instance.
 
 ![Create new folder](../.gitbook/assets/notebook-created.png)
 

@@ -2,7 +2,9 @@
 
 In this lab we are going the train a PyTorch Model that can classify Simpsons using the resources we have created in the [previous lab](lab-1.md).
 
-## Import dependencies
+## 1. Connect to your resources
+
+### Import dependencies
 
 Start with importing dependencies. If you are using a Notebook in Azure Machine Learning Studio, you have all the latest versions install. If you are running your own Jupyter notebook then you have to install the azureml-sdk \(pip install azureml-sdk\).
 
@@ -33,16 +35,14 @@ print("Azure ML SDK Version: ", azureml.core.VERSION)
 
 ![Import dependencies](../.gitbook/assets/model-dependencies.png)
 
-## Connect to your resources
-
 ### Connect to workspace
 
-* Create a new code cell by clicking on the + symbol
+* Create a new code cell by clicking on the '+ Code' button
 * Paste the code below
 
   ```text
   ws = Workspace.from_config()
-  print("Connected to workspace: AIWorkshop:",ws.name)
+  print("Connected to workspace: ",ws.name)
   ```
 
 * Run the cell
@@ -54,7 +54,7 @@ print("Azure ML SDK Version: ", azureml.core.VERSION)
 
 ```text
 compute_target = ComputeTarget(workspace=ws, name="gpu-cluster")
-print("Connected to compute Target:",compute_target.name)
+print("Connected to compute target:",compute_target.name)
 ```
 
 ### Connect to the default datastore
@@ -75,7 +75,7 @@ print("Experiment created:",exp.name)
 
 > View your created experiment on: [https://ml.azure.com](https://ml.azure.com/experiments)
 
-## Data
+## 2. Data
 
 ### Download the dataset from Github
 
@@ -126,8 +126,6 @@ grid = AxesGrid(plt.figure(1, (20,20)), 111, nrows_ncols=(4, 5), axes_pad=0, lab
 
 i = 0
 for img_name in random_filenames[0:10]:
-
-    # Download image
     image = cv2.imread(img_name)
     image = cv2.resize(image, (352, 352))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -161,7 +159,7 @@ simpsons_ds.register(workspace=ws,
              create_new_version = True)
 ```
 
-### Load the dataset
+### Connect to the dataset
 
 ```text
 simpsons_ds = Dataset.get_by_name(ws, name='LegoSimpsons')
@@ -185,6 +183,30 @@ urllib.request.urlretrieve(training_script_url, filename=training_script_downloa
 > Refresh your files and validate that 'train.py' is downloaded in the folder 'trainingscripts': [https://ml.azure.com](https://ml.azure.com/fileexplorerAzNB)
 
 ![Training Script](../.gitbook/assets/model-script.png)
+
+```text
+curated_env_name = 'AzureML-PyTorch-1.6-GPU'
+
+pytorch_env = Environment.get(workspace=ws, name=curated_env_name)
+pytorch_env = pytorch_env.clone(new_name='pytorch-1.6-gpu')
+```
+
+```text
+args = [
+    '--data-folder', simpsons_ds.as_named_input('simpsons').as_mount(),
+    '--num-epochs', 15
+]
+
+project_folder = "./trainingscripts"
+
+config = ScriptRunConfig(
+    source_directory = project_folder, 
+    script = 'train.py', 
+    compute_target=compute_target,
+    environment = pytorch_env,
+    arguments=args,
+)
+```
 
 ### Create the PyTorch estimator
 
@@ -230,7 +252,7 @@ model = run.register_model(model_name='Simpsons-PyTorch',
                            model_path='outputs',
                            model_framework='PyTorch',
                            model_framework_version='1.3',
-                           description="Simpsons PyTorch Classifier (From Jupyter Notebook)",
+                           description="Simpsons PyTorch Classifier",
                            tags={'Conference':'Awesome AI Workshop'},
                            resource_configuration=ResourceConfiguration(cpu=1, memory_in_gb=2))
 
