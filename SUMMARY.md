@@ -11,7 +11,6 @@
 
 * [Lab 1 - Computer Vision](cognitive-services/lab-1.md)
 * [Lab 2 - Custom Vision](cognitive-services/lab-2.md)
-* [Lab 3 - Build an Application](cognitive-services/lab-3.md)
 
 ## Azure Machine Learning
 
