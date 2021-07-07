@@ -26,6 +26,8 @@ conda_dep.add_pip_package("azureml-defaults")
 conda_dep.add_pip_package("torch")
 conda_dep.add_pip_package("torchvision")
 conda_dep.add_pip_package("pillow==5.4.1")
+
+inference_env.python.conda_dependencies=conda_dep
 ```
 
 ### Create an Inference config
