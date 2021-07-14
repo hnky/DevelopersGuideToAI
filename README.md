@@ -1,6 +1,6 @@
 # Introduction
 
-After a tremendous age of innovation and research in the AI field, we are moving towards the age of appliance. But how and where do you get started as a developer?
+\[Hello\] After a tremendous age of innovation and research in the AI field, we are moving towards the age of appliance. But how and where do you get started as a developer?
 
 In this workshop we dive into the AI platform on Microsoft Azure and find out how you as a developer you can use the power of AI in your applications.
 
