@@ -11,20 +11,25 @@ Start with importing dependencies. If you are using a Notebook in Azure Machine 
 * Paste the code below in the first cell and run this cell.
 
 ```text
-import os
+import os, random
 import azureml
 import shutil
 import urllib.request
+from pathlib import Path
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import AxesGrid
+import cv2
+import urllib3 
 import zipfile
 
-
 from azureml.core.model import Model, InferenceConfig
-from azureml.core import Workspace, Datastore, Experiment, Run
-from azureml.core.compute import ComputeTarget, AmlCompute, ComputeTarget
+from azureml.core import Workspace, Datastore, Experiment, Run, Environment, ScriptRunConfig
+
+from azureml.core.compute import ComputeTarget, AmlCompute, AksCompute, ComputeTarget
 from azureml.train.dnn import PyTorch
 from azureml.widgets import RunDetails
-from azureml.core.webservice import Webservice, AciWebservice
-from azureml.core.environment import Environment
+
+from azureml.core.webservice import Webservice, AksWebservice, AciWebservice
 from azureml.core.dataset import Dataset
 from azureml.core.resource_configuration import ResourceConfiguration
 from azureml.core.conda_dependencies import CondaDependencies 
@@ -101,6 +106,8 @@ print("Downloaded file removed: {}".format(download_path))
 ```
 
 > View your the downloaded dataset: [https://ml.azure.com](https://ml.azure.com/fileexplorerAzNB)
+>
+> _Choose the refresh button above your folder structure to see data files_
 
 ![Dataset](../.gitbook/assets/model-data-download.png)
 

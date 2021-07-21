@@ -50,6 +50,8 @@ az ml computetarget create amlcompute -n gpu-cluster --min-nodes 1 --max-nodes 1
 ```
 
 > View your created Azure Machine Learning Compute cluster on [https://ml.azure.com](https://ml.azure.com)
+>
+> _Creating compute can take a few minutes to complete_
 
 ![Create Azure Machine Learning Compute](../.gitbook/assets/create-amlc.png)
 
@@ -64,6 +66,8 @@ az ml computetarget create computeinstance -n <name> --vm-size Standard_D2_V2 -w
 ```
 
 > View your created Azure Machine Learning Compute cluster on [https://ml.azure.com](https://ml.azure.com)
+>
+> _Creating compute can take a few minutes to complete_
 
 ![Create Azure Machine Learning Compute Instance](../.gitbook/assets/create-ci.png)
 
