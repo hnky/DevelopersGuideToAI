@@ -215,23 +215,6 @@ config = ScriptRunConfig(
 )
 ```
 
-### Create the PyTorch estimator
-
-```text
-script_params = {
-    '--data-folder': simpsons_ds.as_named_input('simpsonsdataset').as_mount(),
-    '--num-epochs': 15
-}
-
-estimator = PyTorch(source_directory=project_folder, 
-                    script_params=script_params,
-                    compute_target=compute_target,
-                    entry_script='train.py',
-                    use_gpu=True,
-                    pip_packages=['azureml-dataprep[fuse,pandas]','pillow==5.4.1'],
-                    framework_version='1.3')
-```
-
 ### Submit the PyTorch estimator
 
 ```text
