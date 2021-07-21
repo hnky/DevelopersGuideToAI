@@ -16,6 +16,11 @@ az extension add -n azure-cli-ml
 
 The Azure Machine Learning workspace must be created inside a resource group. You can use an existing resource group or create a new one. To create a new resource group, use the following command. Replace  with the name to use for this resource group. Replace  with the Azure region to use for this resource group:
 
+**Example name and location:** 
+
+* resource group name: pytorchworkshop
+* location: WestEurope
+
 ```text
 az group create --name <resource-group-name> --location <location>
 ```
@@ -36,7 +41,7 @@ az ml workspace create -w <workspace-name> -g <resource-group-name>
 
 To train our model we need an Azure Machine Learning Compute cluster. To create a new compute cluster, use the following command.
 
-This command will create a Azure Machine Learning Compute cluster with 1 node that is always on and is using STANDARD\_NC6 virtual Machines.
+This command will create an Azure Machine Learning Compute cluster with 1 node that is always on and is using STANDARD\_NC6 virtual Machines.
 
 _To speed up the training process you can use a GPU enabled NC6 machine_
 
