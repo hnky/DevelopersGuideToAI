@@ -218,7 +218,7 @@ config = ScriptRunConfig(
 ### Submit the PyTorch estimator
 
 ```text
-run = exp.submit(estimator)
+run = exp.submit(config)
 ```
 
 ### Follow the progress of the run
