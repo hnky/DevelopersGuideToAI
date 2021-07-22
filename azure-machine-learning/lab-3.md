@@ -65,7 +65,9 @@ print("Scoring endpoint:",aci_service.scoring_uri)
 
 > _This step can take up to 10 minutes_
 >
-> You can find the deployment location from your model back under the model: [https://ml.azure.com](https://ml.azure.com/model/list)
+> You can find the deployment location from your model back under the model: [https://ml.azure.com](https://ml.azure.com/model/list) 
+>
+> _Note: if you don't see it immediately refresh the tab_
 
 ![Scoring URL](../.gitbook/assets/deploy-model.png)
 
@@ -83,6 +85,7 @@ print(result)
 
 ### Use Postman
 
+* Download [Postman to your local machine](https://www.postman.com/)
 * Get the scoring uri
 
   ```text
@@ -90,7 +93,9 @@ print(result)
   ```
 
 * Create a new request in Postman
-* Send a raw body with the JSON below
+  * POST request
+  * Put scoring URL in call
+* Send a raw body with the JSON below. _Make sure JSON is selected in orange next to the raw radio button_
 
   ```text
   { "url": "https://raw.githubusercontent.com/hnky/dataset-lego-figures/master/_test/Bart.jpg"}
