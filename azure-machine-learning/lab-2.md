@@ -280,7 +280,7 @@ zip_ref.extractall(test_images_path)
 zip_ref.close()
 print("Data extracted in: {}".format(test_images_path))
 
-os.remove(download_path)
+os.remove(test_images_download_path)
 print("Downloaded file removed: {}".format(test_images_download_path))
 ```
 
@@ -304,7 +304,6 @@ loaded_model.eval()
 with open(os.path.join('outputs','labels.txt'), 'rt') as lf:
     global labels
     labels = [l.strip() for l in lf.readlines()]
-
 
 def scoreImage(image_link):
     # Load the image to predict
@@ -334,23 +333,25 @@ def scoreImage(image_link):
     #Return the result
     return {"label": labels[index], "probability": round(probability*100,2)}
 
+
+
 path = r"data/test"
 grid = AxesGrid(plt.figure(1, (20,20)), 111, nrows_ncols=(4, 5), axes_pad=0, label_mode="1")
 
 i = 0
 for img in os.listdir(path):
-
+    
     #Score the image
     result = scoreImage(os.path.join(path,img))
-
+    
     # Download image
     image = cv2.imread(os.path.join(path,img))
     image = cv2.resize(image, (352, 352))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
+    
     cv2.rectangle(image, (0,260),(352,352),(255,255,255), -1)
     cv2.putText(image, "{} - {}%".format(result['label'],result['probability']),(10, 300), cv2.FONT_HERSHEY_SIMPLEX, 0.65,(0,0,0),2,cv2.LINE_AA)    
-
+    
     # Show image in grid
     grid[i].imshow(image)
     i = i+1
