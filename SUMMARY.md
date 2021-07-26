@@ -18,3 +18,7 @@
 * [Lab 1 - Computer Vision](cognitive-services/lab-1.md)
 * [Lab 2 - Custom Vision](cognitive-services/lab-2.md)
 
+## Resources
+
+* [Slides](resources/slides.md)
+
