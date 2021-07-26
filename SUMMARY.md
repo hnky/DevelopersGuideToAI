@@ -22,4 +22,5 @@
 
 * [Slides](resources/slides.md)
 * [PyTorch Fundamentals](resources/pytorch-fundamentals.md)
+* [Microsoft Learn](resources/microsoft-learn.md)
 
