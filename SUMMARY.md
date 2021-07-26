@@ -21,4 +21,5 @@
 ## Resources
 
 * [Slides](resources/slides.md)
+* [PyTorch Fundamentals](resources/pytorch-fundamentals.md)
 
