@@ -4,8 +4,8 @@
 
 ## Pre-Requirements <a id="workshop"></a>
 
-* [Azure CLI](workshop/azure-cli.md)
 * [Azure Passes](workshop/azure-passes.md)
+* [Azure CLI](workshop/azure-cli.md)
 
 ## Cognitive Services
 
