@@ -2,10 +2,10 @@
 
 * [Introduction](README.md)
 
-## Workshop
+## Pre-Requirements <a id="workshop"></a>
 
-* [Pre-requirements](workshop/preworkshop.md)
-* [Agenda](workshop/agenda.md)
+* [Azure CLI](workshop/azure-cli.md)
+* [Azure Passes](workshop/azure-passes.md)
 
 ## Cognitive Services
 
